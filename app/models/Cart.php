@@ -29,13 +29,14 @@ class Cart
         $query->execute([':id' => $product_id]);
         $product = $query->fetch(PDO::FETCH_OBJ);
 
-        $sql2 = 'INSERT INTO carts(state, user_id, product_id, quantity, discount, send, date)
-                 VALUES (:state, :user_id, :product_id, :quantity, :discount, :send, :date)';
+        $sql2 = 'INSERT INTO carts(state, user_id, product_id, product_price, quantity, discount, send, date)
+         VALUES (:state, :user_id, :product_id, :product_price, :quantity, :discount, :send, :date)';
         $query2 = $this->db->prepare($sql2);
         $params2 = [
             ':state' => 0,
             ':user_id' => $user_id,
             ':product_id' => $product_id,
+            ':product_price' => $product->price,
             ':quantity' => 1,
             ':discount' => $product->discount,
             ':send' => $product->send,
@@ -61,13 +62,15 @@ class Cart
 
     public function update($user, $product, $quantity)
     {
-        $sql = 'UPDATE carts SET quantity=:quantity WHERE user_id=:user_id AND product_id=:product_id';
+        $sql = 'UPDATE carts SET quantity=:quantity, product_price=:product_price WHERE user_id=:user_id AND product_id=:product_id';
         $query = $this->db->prepare($sql);
         $params = [
             ':user_id' => $user,
             ':product_id' => $product,
             ':quantity' => $quantity,
+            ':product_price' => $product_price,
         ];
+
 
         return $query->execute($params);
     }
@@ -85,6 +88,12 @@ class Cart
 
     public function closeCart($id, $state)
     {
+        if (!$query->execute($params)) {
+            $_SESSION['error'] = 'Error updating cart';
+            header('Location: index.php');
+            exit();
+        }
+        
         $sql = 'UPDATE carts SET state=:state WHERE user_id=:user_id AND state=0';
         $query = $this->db->prepare($sql);
         $params = [
