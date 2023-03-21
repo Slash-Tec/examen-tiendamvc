@@ -1,0 +1,1 @@
+Esta pagina web no almacena la sesión, no he solucionado el porqué porque no se pide en el ejercicio y no se podia modificar de manera previa al examen, asi que segurá llevando al inicio de la tienda porque como no es capaz de almacenar la sesión activa se está aplicando el método que he implementado el cual devuelve a los usuarios con la sesión no iniciada al index de la web
