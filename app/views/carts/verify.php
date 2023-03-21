@@ -1,4 +1,11 @@
-<?php include_once(VIEWS . 'header.php') ?>
+<?php 
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: '.ROOT.'shop');
+    exit();
+}
+include_once(VIEWS . 'header.php'); 
+?>
 <div class="card" id="container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">

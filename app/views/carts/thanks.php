@@ -1,4 +1,11 @@
-<?php include_once(VIEWS . 'header.php') ?>
+<?php 
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: '.ROOT.'shop');
+    exit();
+}
+include_once(VIEWS . 'header.php'); 
+?>
 <div class="card" id="container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -17,7 +24,7 @@
     <br>
     <h3>Atentamente:</h3>
     <br>
-    <h3>Sus amigos de Examen</h3>
+    <h3>Sus amigos de TiendaVMC</h3>
     <br>
     <div class="form-group text-left">
         <a href="<?= ROOT ?>shop" class="btn btn-success" role="button">Regresar a la tienda</a>
