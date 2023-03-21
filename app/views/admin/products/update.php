@@ -87,6 +87,14 @@
                        placeholder="Escribe el costo del envio del producto sin comas ni símbolos."
                        value="<?= $data['product']->send ?? '' ?>">
             </div>
+
+            <?php if(isset($data['product']->image)): ?>
+                <?php $image_path = ROOT . 'public/img/' . $data['product']->image; ?>
+                    <?php if(file_exists($image_path)): ?>
+                    <?php unlink($image_path); ?>
+                <?php endif; ?>
+            <?php endif; ?>
+
             <div class="form-group text-left">
                 <label for="image">Imagen del producto:</label>
                 <input type="file" name="image" class="form-control" accept="image/jpeg,image/x-png,image/gif">
