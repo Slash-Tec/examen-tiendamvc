@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mysql
--- Tiempo de generación: 21-03-2023 a las 14:26:31
+-- Tiempo de generación: 21-03-2023 a las 16:58:57
 -- Versión del servidor: 8.0.28
 -- Versión de PHP: 7.4.27
 
@@ -47,7 +47,7 @@ CREATE TABLE `admins` (
 INSERT INTO `admins` (`id`, `name`, `email`, `password`, `status`, `deleted`, `login_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (2, 'Jorge', 'jorge@mail.es', '806cc6e9290ccac7e77a34f545b28fdf3c8a87dab0f144f3885b2411483e433df0a34d9d11355f20b74df86b9bbbe5dd95d4046be9430851b8fbdbc390dc8e54', 1, 0, '2022-10-11 17:26:13', '2022-10-07 18:00:41', '2022-10-11 17:27:38', NULL),
 (4, 'Jaime', 'jaime@mail.es', '806cc6e9290ccac7e77a34f545b28fdf3c8a87dab0f144f3885b2411483e433df0a34d9d11355f20b74df86b9bbbe5dd95d4046be9430851b8fbdbc390dc8e54', 1, 0, '2022-10-11 18:57:02', '2022-10-11 18:02:06', NULL, NULL),
-(6, 'admin', 'admin@gmail.com', 'dd25af7e2570f3e1ce8d41adb736a960b6bedb8acf0fc7b6cf4c827910b2aaf14fa6ff0682bc5e037443bad12438cfcdd1ce02a953b7700f99f6b1697236b6e2', 1, 0, '2023-03-21 11:47:19', '2023-03-10 19:17:04', '2023-03-10 19:17:04', '2023-03-10 19:17:04'),
+(6, 'admin', 'admin@gmail.com', 'dd25af7e2570f3e1ce8d41adb736a960b6bedb8acf0fc7b6cf4c827910b2aaf14fa6ff0682bc5e037443bad12438cfcdd1ce02a953b7700f99f6b1697236b6e2', 1, 0, '2023-03-21 16:23:52', '2023-03-10 19:17:04', '2023-03-10 19:17:04', '2023-03-10 19:17:04'),
 (7, 'admin', 'admin@gmail.es', 'dd25af7e2570f3e1ce8d41adb736a960b6bedb8acf0fc7b6cf4c827910b2aaf14fa6ff0682bc5e037443bad12438cfcdd1ce02a953b7700f99f6b1697236b6e2', 1, 0, '2023-03-21 12:15:17', '2023-03-14 18:02:02', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -64,8 +64,17 @@ CREATE TABLE `carts` (
   `quantity` decimal(10,2) NOT NULL,
   `discount` decimal(10,2) NOT NULL,
   `send` decimal(10,2) NOT NULL,
-  `date` datetime NOT NULL
+  `date` datetime NOT NULL,
+  `product_price` decimal(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `carts`
+--
+
+INSERT INTO `carts` (`id`, `state`, `user_id`, `product_id`, `quantity`, `discount`, `send`, `date`, `product_price`) VALUES
+(17, 0, 3, 1, '1.00', '0.99', '1.99', '2023-03-21 15:23:50', '0.00'),
+(18, 0, 3, 2, '1.00', '1.99', '2.99', '2023-03-21 16:23:35', '19.99');
 
 -- --------------------------------------------------------
 
@@ -91,6 +100,29 @@ INSERT INTO `config` (`id`, `type`, `value`, `description`) VALUES
 (4, 'productType', 2, 'Libro'),
 (5, 'productStatus', 0, 'Inactivo'),
 (6, 'productStatus', 1, 'Activo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` int NOT NULL,
+  `name` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `payments`
+--
+
+INSERT INTO `payments` (`id`, `name`) VALUES
+(1, 'Tarjeta de crédito MasterCard'),
+(2, 'Tarjeta de crédito Visa'),
+(3, 'Tarjeta de débito'),
+(4, 'Efectivo'),
+(5, 'Paypal'),
+(6, 'Bitcoins');
 
 -- --------------------------------------------------------
 
@@ -187,6 +219,12 @@ ALTER TABLE `config`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `products`
 --
 ALTER TABLE `products`
@@ -212,12 +250,18 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT de la tabla `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `config`
 --
 ALTER TABLE `config`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `payments`
+--
+ALTER TABLE `payments`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
