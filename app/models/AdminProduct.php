@@ -38,6 +38,10 @@ class AdminProduct
 
     public function createProduct($data)
     {
+        if (!in_array($data['status'], array(0, 1, 2))) {
+            return false;
+        }
+
         $sql = 'INSERT INTO products(type, name, description, price, discount, send, image, published, relation1, relation2, relation3, mostSold, new, status, deleted, create_at, updated_at, deleted_at, author, publisher, pages, people, objetives, necesites) 
                 VALUES (:type, :name, :description, :price, :discount, :send, :image, :published, :relation1, :relation2, :relation3, :mostSold, :new, :status, :deleted, :create_at, :updated_at, :deleted_at, :author, :publisher, :pages, :people, :objetives, :necesites)';
 
@@ -84,6 +88,10 @@ class AdminProduct
 
     public function updateProduct($data)
     {
+        if (!in_array($data['status'], array(0, 1, 2))) {
+            return false;
+        }
+    
         $errors = [];
 
         $sql = 'UPDATE products SET type=:type, name=:name, description=:description, price=:price, discount=:discount, send=:send, published=:published, relation1=:relation1, relation2=:relation2, relation3=:relation3, mostSold=:mostSold, new=:new, status=:status, deleted=:deleted, updated_at=:updated_at, author=:author, publisher=:publisher, pages=:pages, people=:people, objetives=:objetives, necesites=:necesites';
